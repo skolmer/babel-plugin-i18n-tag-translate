@@ -96,4 +96,5 @@ require("babel-core").transform("code", {
 
 Generate a JSON schema based on all i18n tagged template literals in you project
 
+* [i18n-tag-schema](https://github.com/skolmer/i18n-tag-schema)
 * [Visual Studio Code Extension](https://github.com/skolmer/vscode-i18n-tag-schema)
