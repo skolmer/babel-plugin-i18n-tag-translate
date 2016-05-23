@@ -2,6 +2,7 @@
   "name": "babel-plugin-i18n-tag-translate",
   "version": "0.1.0",
   "description": "Translates i18n tagged template literals based on a json configuration",
+  "icon": "images/vscode-18n-tag-schema-icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/skolmer/babel-plugin-i18n-tag-translate.git"

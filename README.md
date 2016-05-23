@@ -1,4 +1,5 @@
 # babel-plugin-i18n-tag-translate
+![](images/vscode-18n-tag-schema-icon-big.jpg)
 
 Translates i18n tagged template literals based on a json configuration
 
@@ -26,7 +27,7 @@ i18n`Sie haben ${ amount }:c auf Ihrem Bankkonto, ${ name }.`;
 ## Installation
 
 ```sh
-$ npm install babel-plugin-i18n-tag-translate
+$ npm install babel-plugin-i18n-tag-translate --save-dev
 ```
 
 ## Usage
@@ -56,3 +57,9 @@ require("babel-core").transform("code", {
   ]
 });
 ```
+
+## JSON Schema
+
+Generate a JSON schema based on all i18n tagged template literals in you project
+
+* [Visual Studio Code Extension](https://github.com/skolmer/vscode-i18n-tag-schema)
