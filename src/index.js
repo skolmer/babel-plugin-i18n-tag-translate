@@ -87,6 +87,9 @@ const bla = function () {
                         let translationsFile = path.resolve(__dirname, opts.translation)
                         console.log(`Reading: ${translationsFile} ...`)
                         translations = JSON.parse(fs.readFileSync(translationsFile, 'utf-8'))
+                        if(opts.config && opts.config.translations) {
+                            translations = Object.assign(translations, opts.config.translations)
+                        }
                     } catch (err) {
                         console.warn(err.message)
                     }

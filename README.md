@@ -1,7 +1,9 @@
 # babel-plugin-i18n-tag-translate
 ![](images/vscode-18n-tag-schema-icon-big.jpg)
 
-Translates i18n tagged template literals based on a json configuration
+Translates i18n tagged template literals based on a json configuration.
+
+This script can be used to bake translations into your release build.
 
 ## Example
 
@@ -46,6 +48,11 @@ $ npm install babel-plugin-i18n-tag-translate --save-dev
 }
 ```
 
+#### Note
+You need to include [es2015-i18n-tag](https://github.com/skolmer/es2015-i18n-tag) in your exported script for i18n runtime support. 
+You can do this in the entry point of your javascript application or set `globalImport` flag to `true`.
+
+
 ### Via Node API
 
 ```javascript
@@ -57,6 +64,7 @@ require("babel-core").transform("code", {
       "config": { // Adds i18nConfig({"locale": "en-US", "currency": "USD", "number": { ... }, "date": { ... }}); to the output
         "locale": "en-US",
         "currency": "USD",
+        "translations": { "key": "value" }
         "number": { 
           [options]
           // https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
