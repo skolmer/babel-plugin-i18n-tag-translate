@@ -63,10 +63,24 @@ const bla = function () {
     return {
         visitor: {
             Program: function (p, { opts }) {
+                if(opts['globalImport']) {
+                    var newImport = t.importDeclaration(
+                        [t.importDefaultSpecifier(t.identifier("i18n")), t.importSpecifier(t.identifier("i18nConfig"), t.identifier("i18nConfig"))],
+                        t.stringLiteral("i18n")
+                    );
+
+                    p.unshiftContainer('body', newImport);
+                }
+                
+                if(opts['config']) {
+                    // TODO: Add i18nConfig({"locale": "en-US", "defaultCurrency": "USD", "number": { ... }, "date": { ... }}); to the output
+                }
+
                 let translations = {}
                 if (opts.translation) {
                     try {
                         let translationsFile = path.resolve(__dirname, opts.translation)
+                        console.log(`Reading: ${translationsFile} ...`);
                         translations = JSON.parse(fs.readFileSync(translationsFile, 'utf-8'))
                     } catch (err) {
                         console.warn(err.message)

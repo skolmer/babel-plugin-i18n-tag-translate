@@ -11,7 +11,7 @@ function trim(str) {
 describe('Translates i18n tagged template literals based on ./translation.de.json', () => {
   const fixturesDir = path.join(__dirname, 'fixtures');
   fs.readdirSync(fixturesDir).map((caseName) => {
-    it(`should ${caseName.split('-').join(' ')}`, () => {
+    it(`: testing ${caseName.split('-').join(' ')}`, () => {
       const fixtureDir = path.join(fixturesDir, caseName);
       const actualPath = path.join(fixtureDir, 'actual.js');
       const actual = transformFileSync(actualPath).code;
