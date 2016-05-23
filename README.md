@@ -54,37 +54,16 @@ require("babel-core").transform("code", {
     ["i18n-tag-translate", {
       "translation": "./translation.de.json",
       "globalImport": true, // Adds import i18n, { i18nConfig } from "es2015-i18n-tag"; to the output
-      "config": { // Adds i18nConfig({"locale": "en-US", "defaultCurrency": "USD", "number": { ... }, "date": { ... }}); to the output
+      "config": { // Adds i18nConfig({"locale": "en-US", "currency": "USD", "number": { ... }, "date": { ... }}); to the output
         "locale": "en-US",
         "currency": "USD",
         "number": { 
+          [options]
           // https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
-          "localeMatcher",
-          "style",
-          "currency",
-          "currencyDisplay",
-          "useGrouping",
-          "minimumIntegerDigits",
-          "minimumFractionDigits",
-          "maximumFractionDigits",
-          "minimumSignificantDigits",
-          "maximumSignificantDigits"
         },
         "date": { 
+          [options]
           // https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
-          "localeMatcher",
-          "timeZone",
-          "hour12",
-          "formatMatcher",
-          "weekday",
-          "era",
-          "year",
-          "month",
-          "day",
-          "hour",
-          "minute",
-          "second",
-          "timeZoneName"
         }
       }
     }]

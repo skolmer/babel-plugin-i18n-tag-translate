@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import * as t from "babel-types"
+import * as babylon from "babylon";
 
 const typeInfoRegex = /^:([a-z])(\((.+)\))?/
 const paramRegex = /\$\{(\d+)\}/g
@@ -63,24 +64,28 @@ const bla = function () {
     return {
         visitor: {
             Program: function (p, { opts }) {
-                if(opts['globalImport']) {
+                if (opts['config']) {
+                    // TODO Clean up this mess
+                    const code = `let configs = ${JSON.stringify(opts['config'])};`
+                    let objectExpression = babylon.parse(code).program.body[0].declarations[0].init;
+                    let ast = t.expressionStatement(t.callExpression(t.identifier("i18nConfig"), [objectExpression]))
+                    p.unshiftContainer('body', ast)
+                }
+                
+                if (opts['globalImport'] || opts['config']) {
                     var newImport = t.importDeclaration(
                         [t.importDefaultSpecifier(t.identifier("i18n")), t.importSpecifier(t.identifier("i18nConfig"), t.identifier("i18nConfig"))],
                         t.stringLiteral("es2015-i18n-tag")
                     );
 
-                    p.unshiftContainer('body', newImport);
-                }
-                
-                if(opts['config']) {
-                    // TODO: Add i18nConfig({"locale": "en-US", "defaultCurrency": "USD", "number": { ... }, "date": { ... }}); to the output
-                }
+                    p.unshiftContainer('body', newImport)
+                }                
 
                 let translations = {}
                 if (opts.translation) {
                     try {
                         let translationsFile = path.resolve(__dirname, opts.translation)
-                        console.log(`Reading: ${translationsFile} ...`);
+                        console.log(`Reading: ${translationsFile} ...`)
                         translations = JSON.parse(fs.readFileSync(translationsFile, 'utf-8'))
                     } catch (err) {
                         console.warn(err.message)

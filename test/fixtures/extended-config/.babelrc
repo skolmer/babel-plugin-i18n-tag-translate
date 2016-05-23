@@ -1,0 +1,15 @@
+{
+  "presets": [],
+  "plugins": [
+    [
+      "../../../src",
+      {
+        "translation": "../test/translation.de.json",
+        "globalImport": true,
+        "config": {
+            "date": { "hour12": true }
+        }
+      }
+    ]
+  ]
+}
