@@ -1,0 +1,11 @@
+{
+  "presets": [],
+  "plugins": [
+    [
+      "../../../src",
+      {
+        "translation": "../test/fixtures/example/translation.de.json"
+      }
+    ]
+  ]
+}
