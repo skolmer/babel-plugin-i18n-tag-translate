@@ -66,7 +66,7 @@ const bla = function () {
                 if(opts['globalImport']) {
                     var newImport = t.importDeclaration(
                         [t.importDefaultSpecifier(t.identifier("i18n")), t.importSpecifier(t.identifier("i18nConfig"), t.identifier("i18nConfig"))],
-                        t.stringLiteral("i18n")
+                        t.stringLiteral("es2015-i18n-tag")
                     );
 
                     p.unshiftContainer('body', newImport);

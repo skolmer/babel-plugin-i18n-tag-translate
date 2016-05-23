@@ -53,7 +53,7 @@ require("babel-core").transform("code", {
   plugins: [
     ["i18n-tag-translate", {
       "translation": "./translation.de.json",
-      "globalImport": true, // Adds import i18n, { i18nConfig } from "i18n"; to the output
+      "globalImport": true, // Adds import i18n, { i18nConfig } from "es2015-i18n-tag"; to the output
       "config": { // Adds i18nConfig({"locale": "en-US", "defaultCurrency": "USD", "number": { ... }, "date": { ... }}); to the output
         "locale": "en-US",
         "currency": "USD",

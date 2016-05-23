@@ -40,5 +40,8 @@
     "tag",
     "tagged",
     "babel-plugin"
-  ]
+  ],
+  "dependencies": {
+    "es2015-i18n-tag": "^0.2.0"
+  }
 }
