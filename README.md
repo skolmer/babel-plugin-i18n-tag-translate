@@ -1,5 +1,5 @@
 # babel-plugin-i18n-tag-translate
-![](images/vscode-18n-tag-schema-icon-big.jpg)
+[![](images/vscode-18n-tag-schema-icon-big.jpg)](https://github.com/skolmer/es2015-i18n-tag)
 
 Translates i18n tagged template literals based on a json configuration.
 
