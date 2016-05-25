@@ -66,11 +66,11 @@ require("babel-core").transform("code", {
         "translations": { "key": "value" }
         "number": { 
           [options]
-          // https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
+          // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat#Parameters
         },
         "date": { 
           [options]
-          // https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
+          // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat#Parameters
         }
       }
     }]
