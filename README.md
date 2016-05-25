@@ -65,11 +65,11 @@ require("babel-core").transform("code", {
         "locales": "en-US",
         "translations": { "key": "value" }
         "number": { 
-          [options]
+          [...options]
           // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat#Parameters
         },
         "date": { 
-          [options]
+          [...options]
           // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat#Parameters
         }
       }
