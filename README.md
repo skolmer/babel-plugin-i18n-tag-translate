@@ -78,6 +78,41 @@ require("babel-core").transform("code", {
 });
 ```
 
+### Via Gulp
+
+```javascript
+const gulp = require('gulp')
+const sourcemaps = require('gulp-sourcemaps')
+const source = require('vinyl-source-stream')
+const buffer = require('vinyl-buffer')
+const browserify = require('browserify')
+const path = require('path')
+
+gulp.task('build-release-de', () => {
+  // build a german release
+  const translations = path.resolve(__dirname, './translations/translation.de.json');
+
+  browserify('./src/index.js').transform('babelify', {
+    'presets': [
+      'es2015',
+      'stage-0'
+    ],
+    'plugins': [
+      ['i18n-tag-translate', {
+        'translation': translations
+      }]
+    ]
+  }).bundle()
+    .on('error', function (err) { console.error(err); this.emit('end'); })
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./dist'))
+})
+
+```
+
 ## JSON Schema
 
 Generate a JSON schema based on all i18n tagged template literals in your project
