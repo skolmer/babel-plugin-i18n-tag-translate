@@ -37,7 +37,7 @@ const updateTemplateLiterals = {
                 let expressions = []
                 let nextPrefix = ''
                 for (let i = 0; i < literals.length; i++) {
-                    quasis.push(t.templateElement({ raw: nextPrefix + literals[i] }, i === literals.length - 1))
+                    quasis.push(t.templateElement({ raw: nextPrefix + literals[i], cooked: nextPrefix + literals[i] }, i === literals.length - 1))
                     if (indices.length > i) {
                         var paramIndex = indices[i];
                         if (ext.length > paramIndex + 1) {

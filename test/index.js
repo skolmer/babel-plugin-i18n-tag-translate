@@ -20,7 +20,7 @@ describe('Translates i18n tagged template literals based on ./translation.de.jso
           path.join(fixtureDir, 'expected.js')
       ).toString();
 
-      assert.equal(trim(actual), trim(expected));
+      assert.equal(trim(actual).replace(/\r\n/g, "\n"), trim(expected).replace(/\r\n/g, "\n"));
     });
   });
 });
