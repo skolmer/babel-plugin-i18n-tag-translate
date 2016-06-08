@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-i18n-tag-translate",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Translates i18n tagged template literals based on a json configuration",
   "icon": "images/vscode-18n-tag-schema-icon.png",
   "license": "MIT",
