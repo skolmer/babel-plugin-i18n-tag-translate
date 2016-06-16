@@ -6,6 +6,7 @@
       {
         "translation": "../test/translation.de.json",
         "globalImport": true,
+        "groupDir": "../test",
         "config": {
             "translations": { "key": "value" },
             "date": { "hour12": true }

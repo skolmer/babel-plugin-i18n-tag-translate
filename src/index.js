@@ -63,7 +63,15 @@ const updateTemplateLiterals = {
 const bla = function () {
     return {
         visitor: {
-            Program: function (p, { opts }) {
+            Program(p, { file, opts }) {
+                if(opts.groupDir) {
+                    const filename = path.relative(path.resolve(__dirname, opts.groupDir), file.parserOpts.filename).replace(/\\/g, '/')
+                    // TODO Clean up this mess
+                    const code = `let configs = ${JSON.stringify({group: filename})};`
+                    let objectExpression = babylon.parse(code).program.body[0].declarations[0].init;
+                    let ast = t.expressionStatement(t.callExpression(t.identifier("i18nConfig"), [objectExpression]))
+                    p.unshiftContainer('body', ast)
+                }
                 if (opts['config']) {
                     // TODO Clean up this mess
                     const code = `let configs = ${JSON.stringify(opts['config'])};`

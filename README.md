@@ -61,6 +61,7 @@ require("babel-core").transform("code", {
     ["i18n-tag-translate", {
       "translation": "./translation.de.json",
       "globalImport": true, // Adds import i18n, { i18nConfig } from "es2015-i18n-tag"; to the output
+      "groupDir": "./src", // Adds file groupe configuration. e.g. i18nConfig({ "group": "components/index.js" });
       "config": { // Adds i18nConfig({"locale": "en-US", "currency": "USD", "number": { ... }, "date": { ... }}); to the output
         "locales": "en-US",
         "translations": { "key": "value" }
