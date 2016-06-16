@@ -43,6 +43,6 @@
     "babel-plugin"
   ],
   "dependencies": {
-    "es2015-i18n-tag": "^0.7.1"
+    "es2015-i18n-tag": "^0.8.0"
   }
 }
