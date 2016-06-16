@@ -14,7 +14,7 @@ const buildKey = function (literals) {
 }
 
 const updateTemplateLiterals = {
-    TaggedTemplateExpression(path, { translations }) {
+    TaggedTemplateExpression(path, { translations, filename }) {
         if (!path.node.translated && path.node.quasi && path.node.tag.name === 'i18n' && path.node.quasi.quasis) {
             let quasis = path.node.quasi.quasis.map((n) => n.value.raw)
             let ext = quasis.map((q) => {
@@ -25,7 +25,17 @@ const updateTemplateLiterals = {
                 return '';
             })
             let key = buildKey(quasis);
-            let translation = translations[key]
+
+            let translation
+            if(filename) {
+                let group = translations[filename]
+                if(group && group instanceof Object) translation = group[key]
+            }
+
+            if(!translation) {
+                translation = translations[key]
+            }
+
             if (translation) {
                 let indices = []
                 let paramMatch
@@ -64,8 +74,9 @@ const bla = function () {
     return {
         visitor: {
             Program(p, { file, opts }) {
+                let filename = ''
                 if(opts.groupDir) {
-                    const filename = path.relative(path.resolve(__dirname, opts.groupDir), file.parserOpts.filename).replace(/\\/g, '/')
+                    filename = path.relative(path.resolve(__dirname, opts.groupDir), file.parserOpts.filename).replace(/\\/g, '/')
                     // TODO Clean up this mess
                     const code = `let configs = ${JSON.stringify({group: filename})};`
                     let objectExpression = babylon.parse(code).program.body[0].declarations[0].init;
@@ -102,7 +113,7 @@ const bla = function () {
                         console.warn(err.message)
                     }
                 }
-                p.traverse(updateTemplateLiterals, { translations });
+                p.traverse(updateTemplateLiterals, { translations, filename });
             }
         }
     };

@@ -1,0 +1,5 @@
+{
+    "fixtures/extended-config/actual.js": {
+        "Hello ${0}, you have ${1} in your bank account.": "Sie haben ${1} auf Ihrem Bankkonto, ${0}."
+    }
+}

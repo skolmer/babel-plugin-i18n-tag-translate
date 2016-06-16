@@ -4,7 +4,7 @@
     [
       "../../../src",
       {
-        "translation": "../test/translation.de.json",
+        "translation": "../test/translation.grouped.de.json",
         "globalImport": true,
         "groupDir": "../test",
         "config": {
