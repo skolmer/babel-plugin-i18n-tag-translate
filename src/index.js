@@ -76,7 +76,7 @@ const bla = function () {
             Program(p, { file, opts }) {
                 let filename = ''
                 if(opts.groupDir) {
-                    filename = path.relative(path.resolve(__dirname, opts.groupDir), file.parserOpts.filename).replace(/\\/g, '/')
+                    filename = path.relative(path.resolve(process.cwd(), opts.groupDir), file.opts.filename).replace(/\\/g, '/')
                     // TODO Clean up this mess
                     const code = `let configs = ${JSON.stringify({group: filename})};`
                     let objectExpression = babylon.parse(code).program.body[0].declarations[0].init;
@@ -103,7 +103,7 @@ const bla = function () {
                 let translations = {}
                 if (opts.translation) {
                     try {
-                        let translationsFile = path.resolve(__dirname, opts.translation)
+                        let translationsFile = path.resolve(process.cwd(), opts.translation)
                         console.log(`Reading: ${translationsFile} ...`)
                         translations = JSON.parse(fs.readFileSync(translationsFile, 'utf-8'))
                         if(opts.config && opts.config.translations) {

@@ -4,9 +4,9 @@
     [
       "../../../src",
       {
-        "translation": "../test/translation.grouped.de.json",
+        "translation": "./test/translation.grouped.de.json",
         "globalImport": true,
-        "groupDir": "../test",
+        "groupDir": "./test",
         "config": {
             "translations": { "key": "value" },
             "date": { "hour12": true }
