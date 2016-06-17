@@ -7,10 +7,10 @@ const typeInfoRegex = /^:([a-z])(\((.+)\))?/
 const paramRegex = /\$\{(\d+)\}/g
 
 const buildKey = function (literals) {
-    let stripType = s => s.replace(typeInfoRegex, '');
-    let lastPartialKey = stripType(literals[literals.length - 1]);
-    let prependPartialKey = (memo, curr, i) => `${stripType(curr)}\${${i}}${memo}`;
-    return literals.slice(0, -1).reduceRight(prependPartialKey, lastPartialKey);
+    let stripType = s => s.replace(typeInfoRegex, '')
+    let lastPartialKey = stripType(literals[literals.length - 1])
+    let prependPartialKey = (memo, curr, i) => `${stripType(curr)}\${${i}}${memo}`
+    return literals.slice(0, -1).reduceRight(prependPartialKey, lastPartialKey).replace(/\r\n/, '\n')
 }
 
 const updateTemplateLiterals = {
@@ -22,7 +22,7 @@ const updateTemplateLiterals = {
                 if (match && match.length > 1) {
                     return match[0]
                 }
-                return '';
+                return ''
             })
             let key = buildKey(quasis);
 
