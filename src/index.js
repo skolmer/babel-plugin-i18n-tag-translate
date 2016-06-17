@@ -74,15 +74,6 @@ const bla = function () {
     return {
         visitor: {
             Program(p, { file, opts }) {
-                let filename = ''
-                if(opts.groupDir) {
-                    filename = path.relative(path.resolve(process.cwd(), opts.groupDir), file.opts.filename).replace(/\\/g, '/')
-                    // TODO Clean up this mess
-                    const code = `let configs = ${JSON.stringify({group: filename})};`
-                    let objectExpression = babylon.parse(code).program.body[0].declarations[0].init;
-                    let ast = t.expressionStatement(t.callExpression(t.identifier("i18nConfig"), [objectExpression]))
-                    p.unshiftContainer('body', ast)
-                }
                 if (opts['config']) {
                     // TODO Clean up this mess
                     const code = `let configs = ${JSON.stringify(opts['config'])};`
@@ -98,7 +89,15 @@ const bla = function () {
                     );
 
                     p.unshiftContainer('body', newImport)
-                }                
+                }     
+
+                let filename = ''
+                if(opts.groupDir) {
+                    filename = path.relative(path.resolve(process.cwd(), opts.groupDir), file.opts.filename).replace(/\\/g, '/')
+                    const code = `const __translationGroup = ${JSON.stringify(filename)};`
+                    let objectExpression = babylon.parse(code).program.body[0]
+                    p.unshiftContainer('body', objectExpression)
+                }           
 
                 let translations = {}
                 if (opts.translation) {
