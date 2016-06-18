@@ -112,9 +112,11 @@ gulp.task('build-release-de', () => {
 
 ```
 
-## JSON Schema
+## Tools
 
-Generate a JSON schema based on all i18n tagged template literals in your project
+### Run time translation and localization
+* [es2015-i18n-tag](https://github.com/skolmer/es2015-i18n-tag): ES2015 template literal tag for i18n and l10n translation and localization using Intl
 
-* [i18n-tag-schema](https://github.com/skolmer/i18n-tag-schema)
-* [Visual Studio Code Extension](https://github.com/skolmer/vscode-i18n-tag-schema)
+### Schema based translations
+* [i18n-tag-schema](https://github.com/skolmer/i18n-tag-schema): Generates a JSON schema based on all i18n tagged literals in your project.
+* [vscode-18n-tag-schema](https://github.com/skolmer/vscode-i18n-tag-schema): Visual Studio Code Extension to generate a JSON schema.
