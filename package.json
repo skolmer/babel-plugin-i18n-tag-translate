@@ -54,7 +54,7 @@
     "es2015-i18n-tag",
     "i18n-tag-schema",
     "vscode-i18n-tag-schema",
-    "babel-plugin-i18n-tag-translate"
+    "babel-plugin-i18n-tag-translate",
     "babel",
     "plugin",
     "templateliteral",
