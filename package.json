@@ -4,11 +4,20 @@
   "description": "Translates i18n tagged template literals based on a json configuration",
   "icon": "images/vscode-18n-tag-schema-icon.png",
   "license": "MIT",
+  "homepage": "https://github.com/skolmer/es2015-i18n-tag",
   "repository": {
     "type": "git",
     "url": "https://github.com/skolmer/babel-plugin-i18n-tag-translate.git"
   },
-  "author": "Steffen Kolmer <steffen@kolmer.net>",
+  "bugs": {
+    "url": "https://github.com/skolmer/babel-plugin-i18n-tag-translate/issues",
+    "email": "steffen@kolmer.net"
+  },
+  "author": {
+    "email": "steffen@kolmer.net",
+    "name": "Steffen Kolmer",
+    "url": "http://kolmer.net"
+  },
   "main": "lib/index.js",
   "devDependencies": {
     "babel-cli": "^6.4.5",
@@ -29,20 +38,32 @@
     "prepublish": "npm run clean && npm run build"
   },
   "keywords": [
+    "javascript",
+    "JS",
+    "ES6",
+    "ES2015",
+    "Intl",
+    "l10n",
+    "i18n",
+    "translation",
+    "localization",
+    "internationalization",
+    "template literal",
+    "tagged template",
+    "template tag",
+    "es2015-i18n-tag",
+    "i18n-tag-schema",
+    "vscode-i18n-tag-schema",
+    "babel-plugin-i18n-tag-translate"
     "babel",
     "plugin",
     "templateliteral",
-    "es6",
-    "es2015",
-    "i18n",
-    "translation",
-    "l10n",
     "templatestring",
     "tag",
     "tagged",
     "babel-plugin"
   ],
   "dependencies": {
-    "es2015-i18n-tag": "^0.8.0"
+    "es2015-i18n-tag": "^0.8.2"
   }
 }
