@@ -1,7 +1,7 @@
 # babel-plugin-i18n-tag-translate [![Build Status](https://img.shields.io/travis/skolmer/babel-plugin-i18n-tag-translate/master.svg?style=flat)](https://travis-ci.org/skolmer/babel-plugin-i18n-tag-translate) [![npm version](https://img.shields.io/npm/v/babel-plugin-i18n-tag-translate.svg?style=flat)](https://www.npmjs.com/package/babel-plugin-i18n-tag-translate)
 [![](images/vscode-18n-tag-schema-icon-big.jpg)](https://github.com/skolmer/es2015-i18n-tag)
 
-Translates i18n tagged template literals based on a json configuration.
+Translates [i18n tagged template literals](https://github.com/skolmer/es2015-i18n-tag) based on a [json configuration](https://github.com/skolmer/i18n-tag-schema).
 
 This script can be used to bake translations into your release build.
 
@@ -91,8 +91,6 @@ const path = require('path')
 
 gulp.task('build-release-de', () => {
   // build a german release
-  const translations = path.resolve(__dirname, './translations/translation.de.json');
-
   browserify('./src/index.js').transform('babelify', {
     'presets': [
       'es2015',
@@ -100,7 +98,7 @@ gulp.task('build-release-de', () => {
     ],
     'plugins': [
       ['i18n-tag-translate', {
-        'translation': translations
+        'translation': './translations/translation.de.json'
       }]
     ]
   }).bundle()
