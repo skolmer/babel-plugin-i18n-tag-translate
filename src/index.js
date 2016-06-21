@@ -1,34 +1,34 @@
 import fs from 'fs'
 import path from 'path'
 import * as t from "babel-types"
-import * as babylon from "babylon";
+import * as babylon from "babylon"
 
 const typeInfoRegex = /^:([a-z])(\((.+)\))?/
 const paramRegex = /\$\{(\d+)\}/g
 
 const buildKey = function (literals) {
-    let stripType = s => s.replace(typeInfoRegex, '')
-    let lastPartialKey = stripType(literals[literals.length - 1])
-    let prependPartialKey = (memo, curr, i) => `${stripType(curr)}\${${i}}${memo}`
+    const stripType = s => s.replace(typeInfoRegex, '')
+    const lastPartialKey = stripType(literals[literals.length - 1])
+    const prependPartialKey = (memo, curr, i) => `${stripType(curr)}\${${i}}${memo}`
     return literals.slice(0, -1).reduceRight(prependPartialKey, lastPartialKey).replace(/\r\n/, '\n')
 }
 
 const updateTemplateLiterals = {
     TaggedTemplateExpression(path, { translations, filename }) {
         if (!path.node.translated && path.node.quasi && path.node.tag.name === 'i18n' && path.node.quasi.quasis) {
-            let quasis = path.node.quasi.quasis.map((n) => n.value.raw)
-            let ext = quasis.map((q) => {
-                let match = q.match(typeInfoRegex)
+            const quasis = path.node.quasi.quasis.map((n) => n.value.raw)
+            const ext = quasis.map((q) => {
+                const match = q.match(typeInfoRegex)
                 if (match && match.length > 1) {
                     return match[0]
                 }
                 return ''
             })
-            let key = buildKey(quasis);
+            const key = buildKey(quasis)
 
             let translation
             if(filename) {
-                let group = translations[filename]
+                const group = translations[filename]
                 if(group && group instanceof Object) translation = group[key]
             }
 
@@ -37,38 +37,38 @@ const updateTemplateLiterals = {
             }
 
             if (translation) {
-                let indices = []
+                const indices = []
                 let paramMatch
                 while ((paramMatch = paramRegex.exec(translation)) && paramMatch.length == 2) {
                     indices.push(Number.parseInt(paramMatch[1]))
                 }
-                let literals = translation.split(/\$\{\d+\}/g)
-                let quasis = []
-                let expressions = []
+                const literals = translation.split(/\$\{\d+\}/g)
+                const quasis = []
+                const expressions = []
                 let nextPrefix = ''
                 for (let i = 0; i < literals.length; i++) {
                     quasis.push(t.templateElement({ raw: nextPrefix + literals[i], cooked: nextPrefix + literals[i] }, i === literals.length - 1))
                     if (indices.length > i) {
-                        var paramIndex = indices[i];
+                        const paramIndex = indices[i]
                         if (ext.length > paramIndex + 1) {
                             nextPrefix = ext[paramIndex + 1]
                         } else {
                             nextPrefix = ''
                         }
                         if (path.node.quasi.expressions.length > paramIndex) {
-                            let expression = path.node.quasi.expressions[paramIndex];
+                            const expression = path.node.quasi.expressions[paramIndex]
                             expressions.push(expression)
                         }
                     }
                 }
-                let literal = t.templateLiteral(quasis, expressions)
-                let taggedTemplate = t.taggedTemplateExpression(path.node.tag, literal);
+                const literal = t.templateLiteral(quasis, expressions)
+                const taggedTemplate = t.taggedTemplateExpression(path.node.tag, literal)
                 taggedTemplate.translated = true
                 path.replaceWith(taggedTemplate)
             }
         }
     }
-};
+}
 
 const bla = function () {
     return {
@@ -77,16 +77,16 @@ const bla = function () {
                 if (opts['config']) {
                     // TODO Clean up this mess
                     const code = `let configs = ${JSON.stringify(opts['config'])};`
-                    let objectExpression = babylon.parse(code).program.body[0].declarations[0].init;
-                    let ast = t.expressionStatement(t.callExpression(t.identifier("i18nConfig"), [objectExpression]))
+                    const objectExpression = babylon.parse(code).program.body[0].declarations[0].init
+                    const ast = t.expressionStatement(t.callExpression(t.identifier("i18nConfig"), [objectExpression]))
                     p.unshiftContainer('body', ast)
                 }
                 
                 if (opts['globalImport'] || opts['config']) {
-                    var newImport = t.importDeclaration(
+                    const newImport = t.importDeclaration(
                         [t.importDefaultSpecifier(t.identifier("i18n")), t.importSpecifier(t.identifier("i18nConfig"), t.identifier("i18nConfig"))],
                         t.stringLiteral("es2015-i18n-tag")
-                    );
+                    )
 
                     p.unshiftContainer('body', newImport)
                 }     
@@ -95,14 +95,14 @@ const bla = function () {
                 if(opts.groupDir) {
                     filename = path.relative(path.resolve(process.cwd(), opts.groupDir), file.opts.filename).replace(/\\/g, '/')
                     const code = `const __translationGroup = ${JSON.stringify(filename)};`
-                    let objectExpression = babylon.parse(code).program.body[0]
+                    const objectExpression = babylon.parse(code).program.body[0]
                     p.unshiftContainer('body', objectExpression)
                 }           
 
                 let translations = {}
                 if (opts.translation) {
                     try {
-                        let translationsFile = path.resolve(process.cwd(), opts.translation)
+                        const translationsFile = path.resolve(process.cwd(), opts.translation)
                         console.log(`Reading: ${translationsFile} ...`)
                         translations = JSON.parse(fs.readFileSync(translationsFile, 'utf-8'))
                         if(opts.config && opts.config.translations) {
@@ -112,10 +112,10 @@ const bla = function () {
                         console.warn(err.message)
                     }
                 }
-                p.traverse(updateTemplateLiterals, { translations, filename });
+                p.traverse(updateTemplateLiterals, { translations, filename })
             }
         }
-    };
+    }
 }
 
 export default bla
