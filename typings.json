@@ -5,5 +5,9 @@
   },
   "ambientDependencies": {
     "nconf": "registry:dt/nconf#0.0.0+20160316155526"
+  },
+  "globalDevDependencies": {
+    "mocha": "registry:dt/mocha#2.2.5+20160619032855",
+    "rimraf": "registry:dt/rimraf#0.0.0+20160317120654"
   }
 }
