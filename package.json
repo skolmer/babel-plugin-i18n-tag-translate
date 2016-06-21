@@ -31,11 +31,12 @@
     "rimraf": "^2.5.2"
   },
   "scripts": {
+    "lint": "eslint src",
     "clean": "rimraf lib",
     "build": "babel src -d lib",
     "test": "mocha --compilers js:babel-register",
     "test:watch": "npm run test -- --watch",
-    "prepublish": "npm run clean && npm run build"
+    "prepublish": "npm run lint && npm run clean && npm run build"
   },
   "keywords": [
     "javascript",
