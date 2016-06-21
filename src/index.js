@@ -1,13 +1,13 @@
 import fs from 'fs'
 import path from 'path'
-import * as t from "babel-types"
-import * as babylon from "babylon"
+import * as t from 'babel-types'
+import * as babylon from 'babylon'
 
 const typeInfoRegex = /^:([a-z])(\((.+)\))?/
 const paramRegex = /\$\{(\d+)\}/g
 
 const buildKey = function (literals) {
-    const stripType = s => s.replace(typeInfoRegex, '')
+    const stripType = (s) => s.replace(typeInfoRegex, '')
     const lastPartialKey = stripType(literals[literals.length - 1])
     const prependPartialKey = (memo, curr, i) => `${stripType(curr)}\${${i}}${memo}`
     return literals.slice(0, -1).reduceRight(prependPartialKey, lastPartialKey).replace(/\r\n/, '\n')
@@ -78,14 +78,14 @@ const bla = function () {
                     // TODO Clean up this mess
                     const code = `let configs = ${JSON.stringify(opts['config'])};`
                     const objectExpression = babylon.parse(code).program.body[0].declarations[0].init
-                    const ast = t.expressionStatement(t.callExpression(t.identifier("i18nConfig"), [objectExpression]))
+                    const ast = t.expressionStatement(t.callExpression(t.identifier('i18nConfig'), [objectExpression]))
                     p.unshiftContainer('body', ast)
                 }
                 
                 if (opts['globalImport'] || opts['config']) {
                     const newImport = t.importDeclaration(
-                        [t.importDefaultSpecifier(t.identifier("i18n")), t.importSpecifier(t.identifier("i18nConfig"), t.identifier("i18nConfig"))],
-                        t.stringLiteral("es2015-i18n-tag")
+                        [t.importDefaultSpecifier(t.identifier('i18n')), t.importSpecifier(t.identifier('i18nConfig'), t.identifier('i18nConfig'))],
+                        t.stringLiteral('es2015-i18n-tag')
                     )
 
                     p.unshiftContainer('body', newImport)
@@ -108,6 +108,7 @@ const bla = function () {
                         if(opts.config && opts.config.translations) {
                             translations = Object.assign(translations, opts.config.translations)
                         }
+                        console.log('Successfully imported translations.')
                     } catch (err) {
                         console.warn(err.message)
                     }
