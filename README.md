@@ -37,11 +37,6 @@ i18n`Hello ${ name }, you have ${ amount }:c in your bank account.`;
 i18n`Sie haben ${ amount }:c auf Ihrem Bankkonto, ${ name }.`;
 ```
 
-## Installation
-
-```sh
-$ npm install babel-plugin-i18n-tag-translate --save-dev
-```
 
 ## Usage
 
