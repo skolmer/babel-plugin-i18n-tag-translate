@@ -44,7 +44,7 @@ i18n`Sie haben ${ amount }:c auf Ihrem Bankkonto, ${ name }.`;
 
 **.babelrc**
 
-```json
+```js
 {
   "plugins": [
     ["i18n-tag-translate", {
