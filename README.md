@@ -10,6 +10,11 @@ This [babel](https://babeljs.io/) plugin can be used to bake translations into y
 * Add i18n global variables at build time
 * Inject module filenames into your source to group translations by module
 
+## Installation
+
+```sh
+$ npm install babel-plugin-i18n-tag-translate --save-dev
+```
 
 ## Example
 
