@@ -1,7 +1,7 @@
 # i18n Tagged Template Literals - Babel Plugin [![Build Status](https://img.shields.io/travis/skolmer/babel-plugin-i18n-tag-translate/master.svg?style=flat)](https://travis-ci.org/skolmer/babel-plugin-i18n-tag-translate) [![npm version](https://img.shields.io/npm/v/babel-plugin-i18n-tag-translate.svg?style=flat)](https://www.npmjs.com/package/babel-plugin-i18n-tag-translate)
 [![NPM](https://nodei.co/npm/babel-plugin-i18n-tag-translate.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/babel-plugin-i18n-tag-translate/)
 
-[![i18n Tagged Template Literals](images/vscode-18n-tag-schema-icon-big.jpg)](https://github.com/skolmer/es2015-i18n-tag)
+[![i18n Tagged Template Literals](images/vscode-18n-tag-schema-icon-big.jpg)](http://i18n-tag.kolmer.net/)
 
 This [babel](https://babeljs.io/) plugin can be used to bake translations into your release build or to add i18n Tag global variables to your source.
 
