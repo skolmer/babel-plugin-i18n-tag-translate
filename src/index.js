@@ -70,7 +70,7 @@ const updateTemplateLiterals = {
     }
 }
 
-const bla = function () {
+const babelPlugin = function () {
     return {
         visitor: {
             Program(p, { file, opts }) {
@@ -84,7 +84,7 @@ const bla = function () {
                 
                 if (opts['globalImport'] || opts['config']) {
                     const newImport = t.importDeclaration(
-                        [t.importDefaultSpecifier(t.identifier('i18n')), t.importSpecifier(t.identifier('i18nConfig'), t.identifier('i18nConfig'))],
+                        [t.importDefaultSpecifier(t.identifier('i18n')), t.importSpecifier(t.identifier('i18nConfig'), t.identifier('i18nConfig')), t.importSpecifier(t.identifier('i18nGroup'), t.identifier('i18nGroup'))],
                         t.stringLiteral('es2015-i18n-tag')
                     )
 
@@ -119,4 +119,4 @@ const bla = function () {
     }
 }
 
-export default bla
+export default babelPlugin

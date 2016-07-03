@@ -49,7 +49,7 @@ i18n`Sie haben ${ amount }:c auf Ihrem Bankkonto, ${ name }.`;
   "plugins": [
     ["i18n-tag-translate", {
       "translation": "./translations/translation.de.json",
-      "globalImport": true, // Adds import i18n, { i18nConfig } from "es2015-i18n-tag"; to your modules
+      "globalImport": true, // Adds import i18n, { i18nConfig, i18nGroup } from "es2015-i18n-tag"; to your modules
       "groupDir": "./src", // Adds file group name to each module. e.g. const __translationGroup = "components/index.js";
       "config": { // Adds i18nConfig({"locale": "en-US", "translations": { "key": "value" }, "number": { ... }, "date": { ... }}); to the output
         "locales": "en-US",
