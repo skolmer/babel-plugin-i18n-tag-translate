@@ -14,9 +14,12 @@ const buildKey = function (literals) {
 }
 
 const updateTemplateLiterals = {
-    TaggedTemplateExpression(path, { translations, filename }) {
-        if (!path.node.translated && path.node.quasi && path.node.tag.name === 'i18n' && path.node.quasi.quasis) {
-            const quasis = path.node.quasi.quasis.map((n) => n.value.raw)
+    TaggedTemplateExpression(path, { translations, filename, groupName }) {
+        const node = path.node
+        if (!node.translated && node.tag.name === 'i18n' || (node.tag.callee && (node.tag.callee.name === 'i18n' || (node.tag.callee.property && node.tag.callee.property.name === 'i18n'))) || (node.tag.property && node.tag.property.name === 'i18n')) {
+            const quasi = node.quasi || node.tag.callee.quasi || node.tag.callee.property.quasi
+            
+            const quasis = quasi.quasis.map((n) => n.value.raw)
             const ext = quasis.map((q) => {
                 const match = q.match(typeInfoRegex)
                 if (match && match.length > 1) {
@@ -24,10 +27,17 @@ const updateTemplateLiterals = {
                 }
                 return ''
             })
-            const key = buildKey(quasis)
+            const key = buildKey(quasis)            
 
+            if(node.tag.arguments && node.tag.arguments.length) {
+                groupName = path.node.tag.arguments[0].value
+            }
+            
             let translation
-            if(filename) {
+            if(groupName) {
+                const group = translations[groupName]
+                if(group && group instanceof Object) translation = group[key]
+            } else if(filename) {
                 const group = translations[filename]
                 if(group && group instanceof Object) translation = group[key]
             }
@@ -62,10 +72,40 @@ const updateTemplateLiterals = {
                     }
                 }
                 const literal = t.templateLiteral(quasis, expressions)
-                const taggedTemplate = t.taggedTemplateExpression(path.node.tag, literal)
-                taggedTemplate.translated = true
+                const taggedTemplate = t.taggedTemplateExpression(path.node.tag, literal)                
                 path.replaceWith(taggedTemplate)
+                taggedTemplate.translated = true
             }
+        }
+    }
+}
+
+const traverseClassDeclarations = {
+    ClassDeclaration: (path, { translations, filename, groups }) => {
+        const node = path.node
+        if (node.decorators && node.decorators.length) {
+            const groupNames = node.decorators.map((d) => d.expression).filter((e) => e.callee && e.callee.name === 'i18nGroup' && e.arguments && e.arguments.length).map((d) => d.arguments.map(a => a.value)).reduce((p, n) => p.concat(n), [])
+            const groupName = (groupNames.length) ? groupNames[0] : null
+            path.traverse(updateTemplateLiterals, { translations, filename, groupName })
+        } else {
+            path.traverse(updateTemplateLiterals, { translations, filename, groupName: groups[node.id.name] })
+        }
+    }
+}
+
+const traverseExportDeclarations = {
+    CallExpression: (path, { groups }) => {
+        const node = path.node
+        if (node.callee &&
+            node.callee.type === 'CallExpression' &&
+            node.callee.callee &&
+            node.callee.callee.type === 'Identifier' &&
+            node.callee.callee.name === 'i18nGroup' &&
+            node.callee.arguments &&
+            node.callee.arguments.length &&
+            node.arguments &&
+            node.arguments.length) {
+            groups[node.arguments[0].name] = node.callee.arguments[0].value
         }
     }
 }
@@ -113,6 +153,9 @@ const babelPlugin = function () {
                         console.warn(err.message)
                     }
                 }
+                const groups = {}
+                p.traverse(traverseExportDeclarations, { groups }) // find all i18nGroup calls
+                p.traverse(traverseClassDeclarations, { translations, filename, groups }) // traverse classes first to get group decorators
                 p.traverse(updateTemplateLiterals, { translations, filename })
             }
         }
