@@ -3,7 +3,10 @@
 
 [![i18n Tagged Template Literals](images/vscode-18n-tag-schema-icon-big.jpg)](http://i18n-tag.kolmer.net/)
 
-This [babel](https://babeljs.io/) plugin can be used to bake translations into your release build or to add i18n Tag global variables to your source.
+## Overview
+This [babel](https://babeljs.io/) plugin can be used to bake translations into your release build, to add predefined i18n configuration or to add i18n Tag global variables to your output. 
+
+The i18n babel plugin can also be used to generate [File Module Groups](https://github.com/skolmer/es2015-i18n-tag#babel-generated-file-module-groups) to group your translations by the file-path of the related JavaScript module. This can be very useful to keep track of the translations within your source code.
 
 ## Features
 * Build time translation of [i18n tagged template literals](https://github.com/skolmer/es2015-i18n-tag) based on a [json configuration](https://github.com/skolmer/i18n-tag-schema)
