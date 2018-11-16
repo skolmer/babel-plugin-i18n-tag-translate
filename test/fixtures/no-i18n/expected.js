@@ -15,8 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var __translationGroup = "fixtures/no-i18n/actual.js";(0, _es2015I18nTag.i18nConfig)({ "translations": { "key": "value" }, "date": { "hour12": true } });
-
+var __translationGroup = "fixtures/no-i18n/actual.js";
 // anonymous class
 var _default = function () {
     function _default() {

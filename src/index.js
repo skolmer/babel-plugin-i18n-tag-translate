@@ -141,14 +141,19 @@ const babelPlugin = function () {
 
                 let translations = {}
                 if (opts.translation) {
+                    const verbose = !opts.hasOwnProperty('verbose') || opts.verbose === true
                     try {
                         const translationsFile = path.resolve(process.cwd(), opts.translation)
-                        console.log(`Reading: ${translationsFile} ...`)
+                        if (verbose) {
+                            console.log(`Reading: ${translationsFile} ...`)
+                        }
                         translations = JSON.parse(fs.readFileSync(translationsFile, 'utf-8'))
                         if(opts.config && opts.config.translations) {
                             translations = Object.assign(translations, opts.config.translations)
                         }
-                        console.log('Successfully imported translations.')
+                        if (verbose) {
+                            console.log('Successfully imported translations.')
+                        }
                     } catch (err) {
                         console.warn(err.message)
                     }
