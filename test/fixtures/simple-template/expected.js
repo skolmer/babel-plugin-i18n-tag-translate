@@ -1,1 +1,1 @@
-i18n`Sie haben ${ amount }:c auf Ihrem Bankkonto, ${ name }.`;
+i18n`Sie haben ${amount}:c auf Ihrem Bankkonto, ${name}.`;

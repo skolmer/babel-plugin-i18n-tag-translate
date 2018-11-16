@@ -88,7 +88,7 @@ const traverseClassDeclarations = {
             const groupName = (groupNames.length) ? groupNames[0] : null
             path.traverse(updateTemplateLiterals, { translations, filename, groupName })
         } else {
-            path.traverse(updateTemplateLiterals, { translations, filename, groupName: groups[node.id.name] })
+            path.traverse(updateTemplateLiterals, { translations, filename, groupName: groups[node.id && node.id.name] })
         }
     }
 }
