@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import * as t from 'babel-types'
-import * as babylon from 'babylon'
+import * as t from '@babel/types'
+import * as babylon from '@babel/parser'
 
 const typeInfoRegex = /^:([a-z])(\((.+)\))?/
 const paramRegex = /\$\{(\d+)\}/g
